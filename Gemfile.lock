@@ -61,6 +61,7 @@ GEM
       bcrypt-ruby (~> 2.1.2)
       warden (~> 0.10.7)
     diff-lcs (1.1.2)
+    differ (0.1.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     ffi (0.6.3)
@@ -146,6 +147,7 @@ DEPENDENCIES
   capybara
   cucumber-rails
   devise
+  differ
   formtastic (~> 1.1.0)
   highlight
   jquery-rails (~> 0.2.5)
