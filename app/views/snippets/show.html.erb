@@ -1,3 +1,5 @@
 <%@sections.each do |s|%>
- <%= highlight_code s[:language], s[:content] %>
+ <pre>
+ <%= highlight_code(s[:language], s[:content]).html_safe %>
+ </pre>
 <%end%>

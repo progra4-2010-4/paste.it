@@ -1,7 +1,7 @@
 class Snippet < ActiveRecord::Base
   belongs_to :user
-  LANGUAGES = Simplabs::Highlight::SUPPORTED_LANGUAGES.invert
-  DEFAULT_LANGUAGE = LANGUAGES[:ruby]
+  LANGUAGES = Simplabs::Highlight::SUPPORTED_LANGUAGES.invert.each_pair.collect{|k,v| [k.to_sentence, v.to_s]}
+  DEFAULT_LANGUAGE = Simplabs::Highlight::SUPPORTED_LANGUAGES[:ruby]
   before_save :set_language 
   
   has_paper_trail
