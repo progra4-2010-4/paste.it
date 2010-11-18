@@ -2,7 +2,9 @@
   <%f.inputs do%>
     <%= f.input :language, :as =>:select, :collection => Snippet::LANGUAGES %>
     <%= f.input :content, :input_html=> {:autofocus=>"autofocus", :class=>"pastearea"} %>
-    <%= f.input :private %>
+    <% if user_signed_in? %>
+      <%= f.input :private %>
+    <%end%>
 
     <%= f.buttons%>
   <%end%>

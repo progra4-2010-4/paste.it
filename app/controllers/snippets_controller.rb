@@ -55,7 +55,7 @@ class SnippetsController < ApplicationController
   end
 
   def my 
-    @snippets = current_user.snippets.all
+    @snippets = current_user.snippets.order("created_at DESC").paginate :page=>params[:page]
     render :index
   end
 

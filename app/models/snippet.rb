@@ -59,7 +59,7 @@ class Snippet < ActiveRecord::Base
          title, ft= shebanged_lines[i].scan(/(\w+)\.?(\w+)?/).flatten
          #swap if ft is nil
          title, ft = ft, title if ft.nil?
-         {:language=>LANGUAGES_HASH[ft], :content=>groups[i+1], :title=>shebanged_lines[i]}
+         {:language=>LANGUAGES_HASH[ft], :content=>groups[i+1], :title=> !title.nil? ? shebanged_lines[i] : nil }
        end
    rescue
      return default_hash
