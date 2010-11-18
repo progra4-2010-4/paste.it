@@ -1,2 +1,17 @@
-<h1>Snippets#index</h1>
-<p>Find me in app/views/snippets/index.html.erb</p>
+<h2><%=@info%></h2>
+<% @snippets.each do |s|%>
+  <div class="info">
+    <strong><%=link_to s.language, snippets_path(:lang=>s.language)%> </strong> <%= pluralize s.content.lines.count, "line"%>
+    <%unless s.user.nil?%> by <%=link_to s.user.username, user_snippets_path(s.user.id) %><%end%>
+    about <%=distance_of_time_in_words DateTime.now, s.created_at%> ago
+    <mark><%=link_to "View", snippet_path(s)%></mark>
+    <%if user_signed_in? && current_user == s.user%>
+      <%=link_to "Edit", edit_snippet_path(s)%>
+    <%end%>
+  </div>
+  <div class="preview">
+    <%=highlight_code(s.language, s.content, 5).html_safe%>
+  </div>
+<%end%>
+
+<%#<%will_paginate @snippets %%>

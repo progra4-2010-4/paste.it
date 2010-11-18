@@ -4,6 +4,7 @@ PasteIt::Application.routes.draw do
 
   resources :snippets, :except=>[:destroy] do 
       get "diff", :on => :member
+      get "my", :on => :collection
   end
   
   match "users/:user_id/snippets" => "snippets#index", :as=>"user_snippets"

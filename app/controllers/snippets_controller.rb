@@ -1,18 +1,18 @@
 class SnippetsController < ApplicationController
 
-  before_filter :authenticate_user!, :only=>[:mine, :edit, :update]
+  before_filter :authenticate_user!, :only=>[:my, :edit, :update]
 
   def index
     opts = {:page => params[:page],:order=>'created_at DESC'}
     if params[:user_id]
       @info = "#{User.find(params[:user_id]).username}'s snippets"
-      @snippets = Snippet.paginate_by_user_id params[:user_id], opts
+      @snippets = Snippet.find_all_by_user_id_and_private params[:user_id], false, :order=>'created_at DESC' 
     elsif params[:lang]
-      @info = "Snippets in #{lang.capitalize}"
-      @snippets = Snippet.paginate_by_language params[:lang], opts
+      @info = "Snippets in #{params[:lang].capitalize}"
+      @snippets = Snippet.find_all_by_language_and_private params[:lang], false, :order=>'created_at DESC'
     else
       @info = "Recent snippets"
-      @snippets = Snippet.paginate opts 
+      @snippets = Snippet.find_all_by_private(false, :order=>'created_at DESC')
     end
   end
 
@@ -37,16 +37,26 @@ class SnippetsController < ApplicationController
   end
 
   def edit
+    @snippet = Snippet.find params[:id]
+    redirect_to root_path unless current_user == @snippet.user
   end
 
   def update
+    @snippet = Snippet.find params[:id]
+    redirect_to root_path unless current_user == @snippet.user
+    if @snippet.update_attributes params[:snippet]
+      redirect_to @snippet
+    else
+      render :edit
+    end
   end
 
   def diff
   end
 
-  def mine 
-    @snippets = current_user.snippets.find_all_by_private true
+  def my 
+    @snippets = current_user.snippets.all
+    render :index
   end
 
 end

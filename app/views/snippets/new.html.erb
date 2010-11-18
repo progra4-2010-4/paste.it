@@ -1,9 +1,1 @@
-<%= semantic_form_for @snippet do |f|%>
-  <%f.inputs do%>
-    <%= f.input :language, :as =>:select, :collection => Snippet::LANGUAGES %>
-    <%= f.input :content, :input_html=> {:autofocus=>"autofocus", :class=>"pastearea"} %>
-    <%= f.input :private %>
-
-    <%= f.buttons%>
-  <%end%>
-<%end%>
+<%= render :partial => 'form' %>

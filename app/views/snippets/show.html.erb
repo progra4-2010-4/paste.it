@@ -1,3 +1,6 @@
+<%if user_signed_in? && current_user == @snippet.user%>
+  <%=link_to "Edit", edit_snippet_path(@snippet)%>
+<%end%>
 <%@sections.each do |s|%>
  <pre>
  <%= highlight_code(s[:language], s[:content]).html_safe %>

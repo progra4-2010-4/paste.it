@@ -17,7 +17,7 @@
           <li><%=link_to "All snippets", snippets_path%></li>
           <li><%=link_to "New snippet", new_snippet_path%></li>
           <%if user_signed_in?%>
-            <li><%=link_to "My snippets", user_snippets_path(current_user)%></li>
+            <li><%=link_to "My snippets", my_snippets_path%></li>
             <li style="color: white;">Logged in as <%=current_user.username%></li>
             <li><%=link_to "Logout", destroy_user_session_path, :class=>"logout"%></li>
           <%else%>
