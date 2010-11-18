@@ -56,9 +56,7 @@ class SnippetTest < ActiveSupport::TestCase
     #tiene que haber encontrado el contenido bien
     assert_not_nil sections.first[:content]["puts %{o hai}"]
     assert_not_nil sections.last[:content]["<h1>OH, HAI</h1>"]
-  end
-
-  test "shebang-ed languages in snippets have precedence over original language when displayed" do
+    
     #PRUEBA 2:
     #shebang tiene precedencia sobre el lenguaje original al seccionar (pero no al guardar)
     t = Snippet.new :content=>"##! java\nnew Map(){{put('mind', 'blown')}};", :language=>"yaml"
@@ -69,9 +67,7 @@ class SnippetTest < ActiveSupport::TestCase
     assert_equal 1, sections.size
     assert_equal "java", sections.first[:language]
     assert_not_nil sections.first[:content]["'mind', 'blown'"]
-  end
-
-  test "shebang only applies at the beginning of lines" do
+    
     #PRUEBA 3: 
     #no debería partir en secciones si hay un shebang en medio de una línea:
     r = Snippet.new :content=>"and you write it like this: `##! python` and baam!", :language=>"ocaml"
@@ -82,10 +78,8 @@ class SnippetTest < ActiveSupport::TestCase
     assert_equal "ocaml", sections.first[:language]
     #como no es un verdadero #shebang, no debería quitarse:
     assert_not_nil sections.first[:content]["##! python` and"]
-  end
-  
-  #en una línea con shebang, sólo el primer string se debería considerar el lenguaje, lo demás, no
-  test "the shebanged language considered is the first string in the shebanged line" do 
+    
+    #sólo el primero debería se considerado
     r = Snippet.new :content => "##! python ocaml c, as\n print[ e for e in range(10)]", :language=>"js"
 
     sections = r.get_sections
@@ -94,6 +88,7 @@ class SnippetTest < ActiveSupport::TestCase
   end
 
   test "snippet is versioned" do
+    #A HISTORY IS STORED FOR THE SNIPPET
     #cf: https://github.com/airblade/paper_trail
 
     snippet = Snippet.create :content=>"int main(){\nprintf('hallo, welt!')\n}"
@@ -106,10 +101,8 @@ class SnippetTest < ActiveSupport::TestCase
     snippet.update_attributes :content=> "public static void main(String[] args){/**/}"
 
     assert_equal 2, snippet.versions.size
-  end
-
-
-  test "snippet versions are diffable" do 
+    
+    #TEST SNIPPET VERSIONS ARE DIFFABLE
     #cf: https://github.com/pvande/differ
     snippet = Snippet.create :content=>"int main(){\nprintf('hallo, welt!')\n}"
     snippet.update_attributes :content=> "public static void main(String[] args){\nprintf('hallo, welt!')\n}"
