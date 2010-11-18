@@ -9,3 +9,19 @@
  <%= highlight_code(s[:language], s[:content]).html_safe %>
  </pre>
 <%end%>
+
+<%content_for :sidebar do%>
+  <h3>Versions</h3>
+  <%= form_tag(diff_snippet_path, :method=> "get") do%>
+    <ol id="versions">
+      <%@versions.each do |v|%>  
+        <li class="version">
+          <label>
+            <%=check_box_tag "version[]", v.id, false, :class=>"version-box"%>
+            from <%=time_ago_in_words v.created_at%> ago
+          </label>
+        </li>
+      <%end%>
+    </ol>
+  <%end%>
+<%end%>
