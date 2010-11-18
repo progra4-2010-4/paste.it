@@ -93,8 +93,34 @@ class SnippetTest < ActiveSupport::TestCase
     assert_equal "python", sections.first[:language]
   end
 
-  test "snippet is versioned" do end
+  test "snippet is versioned" do
+    #cf: https://github.com/airblade/paper_trail
+
+    snippet = Snippet.create :content=>"int main(){\nprintf('hallo, welt!')\n}"
+
+    assert_not_nil snippet.versions
+    assert_not_nil snippet.versions.last
+    assert_nil snippet.versions.last.reify
+
+    #change it:
+    snippet.update_attributes :content=> "public static void main(String[] args){/**/}"
+
+    assert_equal 2, snippet.versions.size
+  end
 
 
-  test "snippet versions are diffable" do end
+  test "snippet versions are diffable" do 
+    #cf: https://github.com/pvande/differ
+    snippet = Snippet.create :content=>"int main(){\nprintf('hallo, welt!')\n}"
+    snippet.update_attributes :content=> "public static void main(String[] args){\nprintf('hallo, welt!')\n}"
+    snippet.update_attributes :content=> "(println 'hallo welt')"
+    assert_equal 3, snippet.versions.size
+
+    assert_equal "<del class=\"differ\">public static void main(String[] args){\nprintf('hallo, welt!')\n}</del><ins class=\"differ\">(println 'hallo welt')</ins>",
+      Snippet.diff(snippet, snippet.previous_version)
+
+    snippet = snippet.previous_version 
+    assert_equal "<del class=\"differ\">int main(){</del><ins class=\"differ\">public static void main(String[] args){</ins>\nprintf('hallo, welt!')\n}",
+      Snippet.diff(snippet, snippet.previous_version)
+  end
 end
