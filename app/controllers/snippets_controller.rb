@@ -3,17 +3,17 @@ class SnippetsController < ApplicationController
   before_filter :authenticate_user!, :only=>[:my, :edit, :update]
 
   def index
-    opts = {:page => params[:page],:order=>'created_at DESC'}
     if params[:user_id]
       @info = "#{User.find(params[:user_id]).username}'s snippets"
-      @snippets = Snippet.find_all_by_user_id_and_private params[:user_id], false, :order=>'created_at DESC' 
+      q = Snippet.find_all_by_user_id_and_private params[:user_id], false, :order=>'created_at DESC' 
     elsif params[:lang]
       @info = "Snippets in #{params[:lang].capitalize}"
-      @snippets = Snippet.find_all_by_language_and_private params[:lang], false, :order=>'created_at DESC'
+      q = Snippet.find_all_by_language_and_private params[:lang], false, :order=>'created_at DESC'
     else
       @info = "Recent snippets"
-      @snippets = Snippet.find_all_by_private(false, :order=>'created_at DESC')
+      q = Snippet.find_all_by_private(false, :order=>'created_at DESC')
     end
+    @snippets = q.paginate :page=>params[:page]
   end
 
   def show
