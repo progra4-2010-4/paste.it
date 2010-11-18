@@ -1,5 +1,9 @@
 PasteIt::Application.routes.draw do
 
+  get "versions/show"
+
+  get "versions/compare"
+
   devise_for :users
 
   resources :snippets, :except=>[:destroy] do 

@@ -12,7 +12,7 @@
 
 <%content_for :sidebar do%>
   <h3>Versions</h3>
-  <%= form_tag(diff_snippet_path, :method=> "get") do%>
+  <%= form_tag(compare_snippet_versions_path(@snippet), :method=> "get") do%>
     <ol id="versions">
       <%@versions.each do |v|%>  
         <li class="version">
