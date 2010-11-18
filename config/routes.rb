@@ -1,5 +1,16 @@
 PasteIt::Application.routes.draw do
+
   devise_for :users
+
+  resources :snippets, :except=>[:destroy] do 
+      get "diff", :on => :member
+  end
+  
+  match "users/:user_id/snippets" => "snippets#index", :as=>"user_snippets"
+  match "users/:user_id" => redirect("/users/%{user_id}/snippets")
+
+
+  root :to => "snippets#new"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
