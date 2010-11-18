@@ -49,5 +49,5 @@ group :test do
 end
 
 gem 'paper_trail', '~> 1.6.3'
-gem 'highlight', :require => 'simplabs/highlight'
+gem 'highlight', :require => "simplabs/highlight"
 gem 'differ'
