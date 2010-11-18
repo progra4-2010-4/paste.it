@@ -1,4 +1,5 @@
 <h2><%=@info%></h2>
+<%= will_paginate @snippets %>
 <% @snippets.each do |s|%>
   <div class="info">
     <strong><%=link_to s.language, snippets_path(:lang=>s.language)%> </strong> <%= pluralize s.content.lines.count, "line"%>
@@ -14,4 +15,3 @@
   </div>
 <%end%>
 
-<%= will_paginate @snippets %>

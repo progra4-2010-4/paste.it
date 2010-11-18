@@ -13,7 +13,7 @@ class SnippetsController < ApplicationController
       @info = "Recent snippets"
       q = Snippet.find_all_by_private(false, :order=>'created_at DESC')
     end
-    @snippets = q.paginate :page=>params[:page]
+    @snippets = q.paginate :page=>params[:page], :per_page=>10
   end
 
   def show
@@ -49,9 +49,6 @@ class SnippetsController < ApplicationController
     else
       render :edit
     end
-  end
-
-  def diff
   end
 
   def my 
