@@ -1,2 +1,9 @@
-<h1>Snippets#new</h1>
-<p>Find me in app/views/snippets/new.html.erb</p>
+<%= semantic_form_for @snippet do |f|%>
+  <%f.inputs do%>
+    <%= f.input :language, :as =>:select, :collection => Snippet::LANGUAGES %>
+    <%= f.input :content, :input_html=> {:autofocus=>"autofocus", :class=>"pastearea"} %>
+    <%= f.input :private %>
+
+    <%= f.buttons%>
+  <%end%>
+<%end%>

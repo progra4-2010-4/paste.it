@@ -1,2 +1,3 @@
-<h1>Snippets#show</h1>
-<p>Find me in app/views/snippets/show.html.erb</p>
+<%@sections.each do |s|%>
+ <%= highlight_code s[:language], s[:content] %>
+<%end%>

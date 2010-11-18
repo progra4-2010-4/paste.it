@@ -1,6 +1,6 @@
 class Snippet < ActiveRecord::Base
   belongs_to :user
-  LANGUAGES = Simplabs::Highlight::SUPPORTED_LANGUAGES
+  LANGUAGES = Simplabs::Highlight::SUPPORTED_LANGUAGES.invert
   DEFAULT_LANGUAGE = LANGUAGES[:ruby]
   before_save :set_language 
   
