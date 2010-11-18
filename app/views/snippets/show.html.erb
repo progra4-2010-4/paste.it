@@ -5,31 +5,36 @@
     <%=link_to "Go to current", snippet_path(@snippet)%>
   <%end%>
 <%end%>
-<%@sections.each do |s|%>
-  <%unless s[:title].nil?%>
-    <h2><%=s[:title]%></h2>
+<%unless @sections.nil?%>
+  <%@sections.each do |s|%>
+    <%unless s[:title].nil?%>
+      <h2><%=s[:title]%></h2>
+    <%end%>
+   <pre>
+   <%= highlight_code(s[:language], s[:content]).html_safe %>
+   </pre>
   <%end%>
- <pre>
- <%= highlight_code(s[:language], s[:content]).html_safe %>
- </pre>
+<%else%>
+ <pre class="CodeRay">
+  <%=@diff.html_safe%>
+  </pre>
 <%end%>
-
 <%content_for :sidebar do%>
   <h3>Versions</h3>
   <%= form_tag(compare_snippet_versions_path(@snippet), :method=> "get") do%>
     <ol id="versions">
       
-        <li class="current">
+      <li class="latest version <%=diff_class(@versions.first.id)%>">
           <label>
-            <%=check_box_tag "version[]", @versions.first.id, false, :class=>"version-box"%>
+            <%=check_box_tag "versions[]", @versions.first.id, false, :class=>"version-box"%>
             current
             <%=link_to "View", snippet_version_path(@snippet, @versions.first) %>
           </label>
         </li>
       <%@versions[1..-1].reverse.each do |v|%>  
-        <li class="version">
+        <li class="version <%=diff_class(v.id)%>">
           <label>
-            <%=check_box_tag "version[]", v.id, false, :class=>"version-box"%>
+            <%=check_box_tag "versions[]", v.id, false, :class=>"version-box"%>
             from <%=time_ago_in_words v.created_at%> ago
             <%=link_to "View", snippet_version_path(@snippet, v) %>
           </label>
