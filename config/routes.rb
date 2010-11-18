@@ -3,8 +3,10 @@ PasteIt::Application.routes.draw do
   devise_for :users
 
   resources :snippets, :except=>[:destroy] do 
-      get "diff", :on => :member
       get "my", :on => :collection
+      resources(:versions, :only=>[:show]) do 
+        get "compare", :on => :collection
+      end
   end
   
   match "users/:user_id/snippets" => "snippets#index", :as=>"user_snippets"
