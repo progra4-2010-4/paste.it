@@ -12,3 +12,10 @@ The following style may be *conditionally* included for improved support on olde
 form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 --------------------------------------------------------------------------------------------------*/
+del{
+  background-color: #FDD;
+}
+
+ins{
+  background-color: #DFD;
+}

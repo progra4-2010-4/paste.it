@@ -5,9 +5,11 @@ module ApplicationHelper
 
   def diff_class(id) 
     if @current && @original 
-      id == @current  ? "current"  : ""
-      id == @original ? "original" : ""
+      id == @current.to_i  ? "current"  : ""
+      id == @original.to_i ? "original" : ""
     end
     ""
   end
+  
+  def diff_member?(id) end
 end
