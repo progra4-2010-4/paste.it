@@ -116,11 +116,18 @@ class SnippetTest < ActiveSupport::TestCase
     snippet.update_attributes :content=> "(println 'hallo welt')"
     assert_equal 3, snippet.versions.size
 
+    #el arreglo snippet.versions no tiene un elemento 0. De modo que tanto el tamaño (un índice que tampoco existe)
+    #como el 0 deberían referirse a la versión actual (es decir, a snippet y no a snippet.versions[n]
+
     assert_equal "<del class=\"differ\">public static void main(String[] args){\nprintf('hallo, welt!')\n}</del><ins class=\"differ\">(println 'hallo welt')</ins>",
-      Snippet.diff(snippet, snippet.previous_version)
+      snippet.diff(0, 2)
+
+    assert_equal "<del class=\"differ\">public static void main(String[] args){\nprintf('hallo, welt!')\n}</del><ins class=\"differ\">(println 'hallo welt')</ins>",
+      snippet.diff(3, 2)
+
 
     snippet = snippet.previous_version 
     assert_equal "<del class=\"differ\">int main(){</del><ins class=\"differ\">public static void main(String[] args){</ins>\nprintf('hallo, welt!')\n}",
-      Snippet.diff(snippet, snippet.previous_version)
+      snippet.diff(2, 1)
   end
 end

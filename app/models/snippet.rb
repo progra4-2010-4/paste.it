@@ -14,7 +14,9 @@ class Snippet < ActiveRecord::Base
     
   end
 
-  def self.diff(current, original) 
-    Differ.diff(current.content, original.content).format_as(:html)
+  def diff(current, original) 
+    c = current.zero?  || current >= self.versions.size  ? self :  self.versions[current].reify 
+    o = original.zero? || original >= self.versions.size ? self :  self.versions[original].reify 
+    Differ.diff(c.content, o.content).format_as(:html)
   end
 end
