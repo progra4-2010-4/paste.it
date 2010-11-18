@@ -11,7 +11,20 @@ class Snippet < ActiveRecord::Base
   end
 
   def get_sections 
-    
+   #the shebanged lines are always one less than the gruops
+   sep =
+   shebanged_lines = self.content.scan(/^##!\s+(\w+).*\n/).flatten
+   groups = self.content.split /^##!\s+\w+.*\n/
+   default_hash =  [{:language=>self.language, :content=>self.content}]
+   unless shebanged_lines.any? 
+    return default_hash 
+   end
+
+   begin
+       shebanged_lines.each_index.collect{|i| {:language=>shebanged_lines[i], :content=>groups[i+1]}}
+   rescue
+     return default_hash
+   end
   end
 
   def diff(current, original) 
