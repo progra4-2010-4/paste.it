@@ -2,6 +2,9 @@
   <%=link_to "Edit", edit_snippet_path(@snippet)%>
 <%end%>
 <%@sections.each do |s|%>
+  <%unless s[:title].nil?%>
+    <h2><%=s[:title]%></h2>
+  <%end%>
  <pre>
  <%= highlight_code(s[:language], s[:content]).html_safe %>
  </pre>
