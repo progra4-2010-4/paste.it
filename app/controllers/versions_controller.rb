@@ -1,4 +1,15 @@
 class VersionsController < ApplicationController
+  before_filter :has_permission
+
+  def has_permission 
+    #don't allow: anons in private stuff
+    #people in other people's snippets
+    snippet = Snippet.find params[:snippet_id]
+    if snippet.private 
+      redirect_to new_snippet_path unless user_signed_in? && current_user == snippet.user
+    end
+  end
+
   def show
     v = Version.find(params[:id])
     @snippet = v.reify
