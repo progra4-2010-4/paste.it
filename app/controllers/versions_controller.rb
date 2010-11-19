@@ -34,7 +34,7 @@ class VersionsController < ApplicationController
       current = raw_current.reify || @snippet
       original = raw_original.reify || @snippet
 
-      @diff = Differ.diff(current.content, original.content).format_as :html
+      @sections = [{:language=>:diff, :content=>Diff.diff_as_string(current.content, original.content), :title=>"diff"}]
       @current  = c
       @original = o
       @versions = @snippet.versions

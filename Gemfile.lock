@@ -147,6 +147,7 @@ DEPENDENCIES
   coderay
   cucumber-rails
   devise
+  diff-lcs
   differ
   formtastic (~> 1.1.0)
   jquery-rails (~> 0.2.5)

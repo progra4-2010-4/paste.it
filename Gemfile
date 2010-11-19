@@ -51,3 +51,4 @@ end
 gem 'paper_trail', '~> 1.6.3'
 gem 'differ'
 gem 'coderay'
+gem 'diff-lcs'

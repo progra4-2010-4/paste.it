@@ -5,19 +5,13 @@
     <%=link_to "Go to current", snippet_path(@snippet)%>
   <%end%>
 <%end%>
-<%unless @sections.nil?%>
-  <%@sections.each do |s|%>
-    <%unless s[:title].nil?%>
-      <h2><%=s[:title]%></h2>
-    <%end%>
-   <pre>
-   <%= highlight_code(s[:language], s[:content]).html_safe %>
-   </pre>
+<%@sections.each do |s|%>
+  <%unless s[:title].nil?%>
+    <h2><%=s[:title]%></h2>
   <%end%>
-<%else%>
- <pre class="CodeRay">
-  <%=@diff.html_safe%>
-  </pre>
+ <pre>
+ <%= highlight_code(s[:language], s[:content]).html_safe %>
+ </pre>
 <%end%>
 <%content_for :sidebar do%>
   <h3>Versions</h3>
