@@ -1,5 +1,7 @@
 PasteIt::Application.routes.draw do
 
+  get "static/about"
+
   get "versions/show"
 
   get "versions/compare"

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML> 
+<html lang="es">
+<head>
+        <meta charset="utf-8" />
+        <title>examen 2</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/syntax.css" media="screen" /> 
+        <style type="text/css" media="screen">
+            body{
+                color: #444;
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                width: 700px;
+                margin: 0 auto;
+            }    
+            em{
+                background-color: #FFF666;
+            }
+
+            a{
+                color: #06F;
+                text-decoration: none;
+            }
+            pre, code{
+                background-color: ghostWhite !important;
+                border: 1px solid #DEDEDE;
+            
+            
+            }
+
+            pre >code{
+                border: none;
+            }
+
+            .info{
+                background-color: #AFA;
+                font-weight: bold;
+            }
+
+            .warn{
+                background-color: #FCC;
+                font-weight: bold;
+            }
+            #contents{
+                position: fixed;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                background-color: #CCC;
+                width: 150px;
+            }
+            .main{
+                float:right;
+            }
+        </style>
+</head>
+<body>
+    <div id="content">
+<div class="post">
+    <h1 id='examen_2_progra_4'>Examen 2, progra 4</h1>
+    <p>
+    <span class="info" style="font-size: 1.2em">La aplicación de muestra está en <a href="http://pasteit.heroku.com">http://pasteit.heroku.com</a></span> 
+    </p>
+    <p>
+    <span class="info" style="font-size: 1.2em">Y, para ver si tus cambios se suben al servidor: <a href="http://turngitin.heroku.com">http://turngitin.heroku.com</a></span> 
+    </p>
+<p>Como se mencionó en clase, tenés desde el viernes 19 de noviembre de 2010 a las 00:00 hasta el lunes 22 de noviembre a las 00:00 para completar este examen.</p>
+
+<p>Puesto que el examen se <strong>entregará via git</strong>, desarrollé una <a href='http://turngitin.heroku.com/'>pequeña página</a> donde podés ver si tus commits se subieron y cuándo se subieron, útil para cuando uno haga <code>push</code>, si está ahí, significa que está bien guardado en el servidor.</p>
+
+<h2 id='prerequisitos'>Pre-requisitos</h2>
+
+<p>Se presupone que generaste una <a href='http://help.github.com/key-setup-redirect'>llave pública ssh</a> y que la entregaste apropiadamente. Además, se asume que tenés <code>git</code> y ruby instalados en tu computadora.</p>
+
+<h2 id='recursos'>Recursos</h2>
+
+<p>Se recomienda, evidentemente, tener en cuenta los <a href='https://github.com/organizations/progra4'>ejemplos</a> hechos en clase. Además, se debe recordar que tanto las <a href='http://guides.rubyonrails.org/'>guías oficiales</a> como los <a href='http://railscasts.com/'>tutoriales en video</a> y la <a href='http://api.rubyonrails.org/'>documentación del API</a> -entre <a href='http://www.engineyard.com/blog/2010/resources-for-getting-started-with-ruby-on-rails/'>otros</a> son de ayuda indiscutible en el desarrollo en RoR. Asimismo, no viene de más un <a href='http://rails.vim.tpope.net/'>uso apropiado</a> de un editor de texto y el <a href='http://gitref.org/'>sistema de control de versiones</a>.</p>
+
+<p>En las secciones correspondientes se hablará de plugins y librerías recomendados para el desarrollo.</p>
+
+<h2 id='preparacin_del_ambiente_de_desarrollo'>Preparación del ambiente de desarrollo</h2>
+
+<p>La entrega del examen se hará via git, a continuación se detallan los pasos para comenzar:</p>
+
+<p>Esta vez <strong>no</strong> vas a hacer un clon de una carpeta remota ya creada, sino que crearás tu proyecto de rails desde cero y luego lo conectarás al servidor, donde ya te he dado permisos de escritura sobre un repositorio.</p>
+
+<ul>
+<li>
+<p>Tenés que crear una aplicación nueva de rails con <code>rails new examen2</code></p>
+</li>
+
+<li>
+<p>Crear historial de git con <code>git init</code></p>
+</li>
+
+<li>
+<p>Luego, <em>dentro de la carpeta</em>, tenés que conectar esa aplicación con tu repositorio remoto de git, así:</p>
+<div class='highlight'><pre><code class='console'><span class='go'>    $ git remote add origin git@lfborjas.xen.prgmr.com:NUMERODECUENTA_examen2.git</span>
+<span class='go'>    </span>
+</code></pre>
+</div></li>
+
+<li>
+<p>Te recomiendo que <strong>inmediatamente después</strong> de agregar el remoto, agregués tus archivos generados por rails (con <code>git add .</code>) y <strong>hagás un commit y un push</strong>: por ejemplo, si yo estuviera tomando el examen, haría esto en mi consola:</p>
+<div class='highlight'><pre><code class='console'><span class='go'>    $ git add .</span>
+<span class='go'>    $ git commit -m &#39;primer commit: recién generado el proyecto de rails&#39; </span>
+<span class='go'>    $ git push origin master</span>
+<span class='go'>    Counting objects: 7, done.</span>
+<span class='go'>    Delta compression using up to 2 threads.</span>
+<span class='go'>    Compressing objects: 100% (3/3), done.</span>
+<span class='go'>    Writing objects: 100% (4/4), 356 bytes, done.</span>
+<span class='go'>    Total 4 (delta 2), reused 0 (delta 0)</span>
+<span class='go'>    remote: Tu examen fue actualizado y tu maestro notificado</span>
+<span class='go'>    To git@lfborjas.xen.prgmr.com:10611066.git</span>
+<span class='go'>       2520dcd..415e369  master -&gt; master</span>
+<span class='go'>    </span>
+</code></pre>
+</div></li>
+
+<li>
+<p>Después de ese push, deberías entrar a <a href='http://turngitin.heroku.com/'>http://turngitin.heroku.com/</a> y ver, <em>al final</em> de la página, un mensaje de que vos subiste cambios. Si no te dice eso de <code>remote: Tu examen fue actualizado y tu maestro notificado</code> sino que te sale algo de <code>connection refused</code>, esperá un par de segundos y volvé a intentar. Si te sale algo de que no tenés acceso de escritura, eso es porque <strong>no me mandaste tu clave ssh o me la mandaste mal</strong> en cuyo caso me debés mandar un correo y seguir trabajando, lamentablemente mañana no estaré disponible para respuesta rápida.</p>
+</li>
+</ul>
+
+<h2 id='flujo_de_trabajo_recomendado'>Flujo de trabajo recomendado</h2>
+
+<p>Para simplificar las cosas, en este examen no se incluye <span class='info'>absolutamente nada de pruebas</span>, de modo que <span class='info'>no te tenés NI que molestar en instalar cucumber o escribir features o pruebas de unidad</span>. Nada de eso, nil, nullen.</p>
+
+<p>Te recomiendo revisar la <a href='http://pasteit.heroku.com'>aplicación de prueba</a> y a la vez los <a href='#escenarios'>escenarios verbales</a> presentados más adelante. Tratá de ir terminando uno por uno y en el orden recomendado. Debido a que disponés de tanto tiempo, tu aplicación tiene que comportarse <strong>igual o mejor</strong> que la de muestra, no se aceptan excusas.</p>
+
+<p><strong>Siempre, siempre, siempre hacé commits en git: cada cosa que sabés que está bien debería tener su propio punto en la historia de git, y hasta su propio push al servidor</strong>.</p>
+
+<p>Siempre tené en mente el ciclo mvc y recordá que tanto <code>rake routes</code> como <code>rails server</code> y <code>rails console</code> son herramientas indispensables: si programás algo, probalo antes en la consola, si algo no te funciona <strong>mirá tu aplicación en el browser</strong> y seguí el modelo MVC: si algo está mal, está mal en alguno de esos lugares. Asimismo, recordá que cuando corrés <code>rails server</code> RoR imprime una bitácora <em>detallada</em> de todo lo que pasa en la aplicación. Por último, tratá de no repetirte y de mantener las cosas simples: si te complicás mucho, lo estás haciendo mal.</p>
+
+<h2 id='descripcin_de_la_aplicacin'>Descripción de la aplicación</h2>
+
+<p>Como se ve en la muestra, esta aplicación es un <a href='http://en.wikipedia.org/wiki/Pastebin'>pastebin</a>, inspirado por <a href='http://pastie.org/'>pastie</a> y <a href='https://gist.github.com/'>gist.github</a>, ambas aplicaciones hechas en Ruby on Rails.</p>
+
+<p>La idea es simple: podés crear snippets de código y ver otros que han sido creados. Además, podés registrarte para poder llevar control de las versiones de tus snippets y optar por crearlos privados. Como ves, no hay mucho truco, es igual de simple que las que hemos hecho en clase.</p>
+
+<h1 id='escenarios'>Escenarios</h1>
+
+<p>Aunque no te puse escenarios en cucumber, aquí te describo a grandes rasgos cómo espero que se comporte tu aplicación. <strong>Recordá que vas a tener que decidir por tu cuenta qué plugins agregar a tu Gemfile</strong>.</p>
+
+<h2 id='autenticacin_de_usuarios'>Autenticación de usuarios</h2>
+
+<ul>
+<li>Un usuario debería poder registrarse con un nombre de usuario <strong>único y no vacío</strong>.</li>
+
+<li>Un usuario registrado que se haya autenticado debería poder ver sus <em>snippets privados</em></li>
+
+<li>Ningún usuario debería poder ver los snippets privados de otros</li>
+
+<li>Un usuario tiene que estar autenticado <strong>y ser el propietario</strong> de un snippet para optar por editarlo</li>
+
+<li>Un snippet se puede crear sin propietario, en cuyo caso no debería poder ser editable.</li>
+</ul>
+
+<h2 id='creacin_de_snippets'>Creación de snippets</h2>
+
+<p>Los snippets están definidos por: un contenido en texto, un lenguaje de programación en el que están escritos y si son o no privados.</p>
+
+<ul>
+<li>La página raíz de la aplicación <strong>debe</strong> ser la creación de nuevos snippets. Y <strong>siempre</strong> se tiene que poder regresar a ella fácilmente.</li>
+
+<li><strong>Sólo</strong> usuarios autenticados pueden crear snippets privados.</li>
+
+<li>Cuando se crea un snippet, debería ponerse un lenguaje por defecto (en la muestra, ruby).</li>
+
+<li>Después de creado un snippet, se debería ir a la página de muestra del mismo.</li>
+
+<li>La página de lista de snippets se debe mostrar <a href='https://github.com/mislav/will_paginate'>paginada</a> (si usás <code>will_paginate</code>, no usés <code>paginate_by..</code>, mejor usá <code>where(...).paginate</code>, hay un bug en el gem) y filtrada por usuario (sólo los snippets públicos de un usuario deberían salir), lenguaje de programación y ordenado siempre desde el más reciente hasta el más antiguo.</li>
+
+<li>En la página de la lista de snippets se debería mostrar una vista previa (sólo las primeras n líneas) y no el snippet completo. Asimismo, se debe avisar al usuario cuántas líneas tiene el contenido y hace cuánto fue creado.</li>
+
+<li>Cuando un usuario autenticado está en la página de un snippet que ha creado, debería poder optar por editarlo.</li>
+</ul>
+
+<h2 id='caractersticas_de_implementacin_libre'>Características de implementación libre</h2>
+
+<p>De las siguientes características, sólo <strong>una</strong> es requerida. Si hacés las dos, estás optando a cinco puntos extra. La implementación puede diferir totalmente de la página muestra, mientras sean equivalentes.</p>
+
+<ul>
+<li>
+<p>Los snippets se deben poder mostrar con sintaxis coloreada. Para ello, se recomienda <a href='http://ruby-toolbox.com/categories/syntax_highlighting.html'>tener estos gems en cuenta</a>. <strong>Esta es una característica libre, no tiene por qué parecerse a la página de muestra</strong>. y <strong>a la hora de mostrarlo, pero no de guardarlo</strong> un snippet se debería poder mostrar <em>separado en secciones</em>, donde las secciones se delimitan con una línea de una forma similar a <code>##! nombre.extension</code>. Por ejemplo, un snippet guardado con contenido:</p>
+</li>
+</ul>
+<div class='highlight'><pre><code class='console'><span class='go'>        !## archivo.rb</span>
+<span class='go'>        module Hola</span>
+<span class='go'>            puts %{mundo}</span>
+<span class='go'>        end</span>
+
+<span class='go'>        !## view.erb</span>
+<span class='go'>        &lt;h1&gt;&lt;%=link_to life, @earth%&gt;&lt;/h1&gt;</span>
+<span class='go'>        </span>
+</code></pre>
+</div>
+<p>se debería desplegar como:</p>
+
+<pre><code>archivo.rb</code></pre>
+<div class='highlight'><pre><code class='ruby'>    <span class='k'>module</span> <span class='nn'>Hola</span>
+        <span class='nb'>puts</span> <span class='sx'>%{mundo}</span>
+    <span class='k'>end</span>
+    
+</code></pre>
+</div>
+<pre><code>view.erb</code></pre>
+
+<p><div class='highlight'><pre><code class='erb'><span class='x'>        &lt;h1&gt;</span><span class='cp'>&lt;%=</span><span class='n'>link_to</span> <span class='n'>life</span><span class='p'>,</span> <span class='vi'>@earth</span><span class='cp'>%&gt;</span><span class='x'>&lt;/h1&gt;</span>
+<span class='x'>    </span>
+</code></pre>
+</div></p>
+
+<p>(esta idea fue inspirada por cómo lo hace <a href='http://pastie.org/help#adv'>pastie</a>, así que podés hacerlo como lo hacen ellos si querés).</p>
+
+<ul>
+<li>Poder guardar un historial de edición para los snippets y poder <a href='https://github.com/myobie/htmldiff'>comparar versiones</a>. Esta idea fue sacada de <a href='https://gist.github.com/'>gist.github</a> y de <a href='http://writeboard.com/'>writeboard</a>, así que podés crear archivos ahí y ver cómo funciona. Te recomiendo ver <a href='http://ruby-toolbox.com/categories/activerecord_versioning.html'>estos gems</a> y este <a href='http://railscasts.com/episodes/177-model-versioning'>railscast</a> para ideas de cómo hacerlo.</li>
+</ul>
+<div class='info'>
+Las últimas dos características son totalmente libres: no importa que tu implementación sea completamente distinta a la de la aplicación de muestra (podría ser mejor, yo decidí usar los gems más inútiles para ver si haciendo todo a pie terminaba a tiempo, y ahí hay gems que te facilitarán muchísimo el trabajo). Si te fijás, los requerimientos son más bien vagos, porque quiero ver cómo ponés creatividad en esas últimas características.
+</div>
+</div>
+</div>
+</body></html>
