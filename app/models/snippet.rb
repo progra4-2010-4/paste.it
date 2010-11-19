@@ -1,3 +1,17 @@
+# == Schema Information
+# Schema version: 20101118025850
+#
+# Table name: snippets
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  language   :string(255)
+#  content    :text
+#  private    :boolean
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Snippet < ActiveRecord::Base
   belongs_to :user
   LANGUAGES = CodeRay::Scanners.list.sort
@@ -37,7 +51,7 @@ class Snippet < ActiveRecord::Base
   DEFAULT_LANGUAGE = "ruby" 
   before_save :set_language 
   
-  has_paper_trail
+  has_paper_trail :ignore => [:private, :language]
 
   def set_language 
     self.language = DEFAULT_LANGUAGE if self.language.blank?  
