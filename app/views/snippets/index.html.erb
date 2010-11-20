@@ -8,7 +8,7 @@
   <div class="info" style="display:block; background-color: #DDD;">
     <strong><%=link_to s.language, snippets_path(:lang=>s.language)%> </strong> <%= pluralize s.content.lines.count, "line"%>
     <%unless s.user.nil?%> by <%=link_to s.user.username, user_snippets_path(s.user.id) %><%end%>
-    about <%=distance_of_time_in_words DateTime.now, s.created_at%> ago
+    <%=distance_of_time_in_words DateTime.now, s.created_at%> ago
     <mark><%=link_to "View", snippet_path(s)%></mark>
     <%if user_signed_in? && current_user == s.user%>
       <%=link_to "Edit", edit_snippet_path(s)%>

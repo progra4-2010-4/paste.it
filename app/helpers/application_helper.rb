@@ -7,12 +7,12 @@ module ApplicationHelper
     end
   end
 
-  def diff_class(id) 
-    if @current && @original 
-      id == @current.to_i  ? "current"  : ""
-      id == @original.to_i ? "original" : ""
+  def diff_class(id, current, original) 
+    r= ""
+    if current && original
+      r = id==current.to_i ? "current" : "original"
     end
-    ""
+    r
   end
   
   def diff_member?(id) end
