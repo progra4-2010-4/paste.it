@@ -21,6 +21,7 @@ class SnippetsController < ApplicationController
     if @snippet.private
       redirect_to root_path unless user_signed_in? && current_user == @snippet.user
     end
+    @original = @snippet.versions.first.id
     @sections = @snippet.get_sections
     @versions = @snippet.versions
   end

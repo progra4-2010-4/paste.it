@@ -16,6 +16,7 @@ class VersionsController < ApplicationController
     return redirect_to snippet_path(Snippet.find(params[:snippet_id])) if @snippet.nil?
     @sections = @snippet.get_sections
     @versions = @snippet.versions
+    @original = params[:id]
     #original = Snippet.find params[:snippet_id]
     #@diff = Differ.diff current, original
     render 'snippets/show'
