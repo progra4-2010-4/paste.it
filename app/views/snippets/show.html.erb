@@ -20,7 +20,7 @@
       
       <li class="latest version <%=diff_class(@versions.first.id, @current, @original)%>">
           <label>
-            <%=check_box_tag "versions[]", @versions.first.id, diff_member?(@versions.first.id), :class=>"version-box"%>
+            <%=check_box_tag "versions[]", @versions.first.id, diff_member?(@versions.first.id, @current, @original), :class=>"version-box"%>
             current
             <%=link_to "View", snippet_version_path(@snippet, @versions.first) %>
           </label>
@@ -28,7 +28,7 @@
       <%@versions[1..-1].reverse.each do |v|%>  
         <li class="version <%=diff_class(v.id, @current, @original)%>">
         <label>
-            <%=check_box_tag "versions[]", v.id, diff_member?(v.id), :class=>"version-box"%>
+            <%=check_box_tag "versions[]", v.id, diff_member?(v.id, @current, @original), :class=>"version-box"%>
             from <%=time_ago_in_words v.created_at%> ago
             <%=link_to "View", snippet_version_path(@snippet, v) %>
           </label>

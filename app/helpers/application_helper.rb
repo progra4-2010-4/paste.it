@@ -15,5 +15,7 @@ module ApplicationHelper
     r
   end
   
-  def diff_member?(id) end
+  def diff_member?(id, current, original)
+    id == current.to_i || id == original.to_i
+  end
 end
