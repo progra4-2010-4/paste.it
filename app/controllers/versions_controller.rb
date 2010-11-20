@@ -16,7 +16,7 @@ class VersionsController < ApplicationController
     return redirect_to snippet_path(Snippet.find(params[:snippet_id])) if @snippet.nil?
     @sections = @snippet.get_sections
     @versions = @snippet.versions
-    @original = params[:id]
+    @current = params[:id]
     #original = Snippet.find params[:snippet_id]
     #@diff = Differ.diff current, original
     render 'snippets/show'
@@ -35,7 +35,8 @@ class VersionsController < ApplicationController
       current = raw_current.reify || @snippet
       original = raw_original.reify || @snippet
 
-      @sections = [{:language=>:diff, :content=>Diff.diff_as_string(current.content, original.content), :title=>"diff"}]
+      @sections = [{:language=>:diff, :content=>Diff.diff_as_string(original.content, current.content),
+                    :title=>""}]
       @current  = c
       @original = o
       @versions = @snippet.versions

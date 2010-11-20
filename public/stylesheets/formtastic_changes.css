@@ -20,12 +20,12 @@ ins{
   background-color: #DFD;
 }
 
-.current{
+.original{
   background-color: #FFEBEB;
   border: 1px solid #FAA;
 }
 
-.original{
+.current{
   background-color: #EBFFEB;
   border: 1px solid #AFA;
 }
@@ -35,7 +35,14 @@ ins{
   padding-bottom: 2px;
 }
 
+.info{
+  background-color: #DDD;
+}
 .private{
   background-color: #FFFEEB;
   border: 1px solid #F7CA75;
+}
+
+#meta{
+  float:right;
 }

@@ -5,14 +5,18 @@
 <br/>
 <br/>
 <% @snippets.each do |s|%>
-  <div class="info" style="display:block; background-color: #DDD;">
-    <strong><%=link_to s.language, snippets_path(:lang=>s.language)%> </strong> <%= pluralize s.content.lines.count, "line"%>
-    <%unless s.user.nil?%> by <%=link_to s.user.username, user_snippets_path(s.user.id) %><%end%>
-    <%=distance_of_time_in_words DateTime.now, s.created_at%> ago
-    <mark><%=link_to "View", snippet_path(s)%></mark>
+  <div class="info <%="private" if s.private%>" >
+    <%=link_to "View", snippet_path(s)%>
     <%if user_signed_in? && current_user == s.user%>
       <%=link_to "Edit", edit_snippet_path(s)%>
     <%end%>
+    <div id="meta">
+      <%= pluralize s.content.lines.count, "line"%>
+      of
+      <strong><%=link_to s.language, snippets_path(:lang=>s.language)%> </strong> 
+      <%=distance_of_time_in_words DateTime.now, s.created_at%> ago
+      <%unless s.user.nil?%> by <%=link_to s.user.username, user_snippets_path(s.user.id) %><%end%>
+    </div>
   </div>
   <div class="preview">
     <%=highlight_code(s.language, s.content, 5).html_safe%>
